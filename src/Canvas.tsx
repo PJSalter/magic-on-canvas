@@ -53,7 +53,7 @@ const Canvas: React.FC = () => {
     // Call the animateBackground function to start the animation
     animateBackground();
 
-    //Create a cube
+    //Create a sphere
     const sphereGeometry = new THREE.SphereGeometry(1, 32, 32); // Adjust the geometry as needed
     const sphereMaterial = new THREE.MeshStandardMaterial({
       color: 0x00ff00, // Green color
