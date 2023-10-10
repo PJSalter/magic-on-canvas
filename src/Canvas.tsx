@@ -38,6 +38,20 @@ const Canvas: React.FC = () => {
     const background = new THREE.Mesh(geometry, material);
     scene.add(background);
 
+    // Create a clock to control the rotation
+    const clock = new THREE.Clock();
+
+    // Function to update the rotation
+    function animateBackground() {
+      const elapsedTime = clock.getElapsedTime();
+      background.rotation.z = elapsedTime; // Rotate around the z-axis
+      renderer.render(scene, camera);
+      requestAnimationFrame(animateBackground);
+    }
+
+    // Call the animateBackground function to start the animation
+    animateBackground();
+
     // Create a cube
     const cubeGeometry = new THREE.BoxGeometry();
     const cubeMaterial = new THREE.MeshPhongMaterial({
