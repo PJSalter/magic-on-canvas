@@ -53,13 +53,15 @@ const Canvas: React.FC = () => {
     // Call the animateBackground function to start the animation
     animateBackground();
 
-    //Create a sphere
+    // Create a sphere
     const sphereGeometry = new THREE.SphereGeometry(1, 32, 32); // Adjust the geometry as needed
     const sphereMaterial = new THREE.MeshStandardMaterial({
       color: 0x00ff00, // Green color
-      metalness: 80, // Fully metallic
-      opacity: 1,
-      roughness: 0.5, // Adjust roughness for the desired look
+      metalness: 0.5, // Adjust the metalness (0 to 1, higher value for more metallic)
+      roughness: 0.2, // Adjust the roughness (0 to 1, lower value for more shine)
+      opacity: 12, // Adjust the opacity (0 to 1)
+      side: THREE.DoubleSide, // Render both sides of the geometry
+      transparent: true, // Enable transparency
     });
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     scene.add(sphere);
@@ -69,8 +71,12 @@ const Canvas: React.FC = () => {
 
     // Add a light source
     const light = new THREE.PointLight(0xffffff);
-    light.position.set(0, 0, 10);
+    light.position.set(0, 0, 5);
     scene.add(light);
+
+    // Add ambient light to the scene
+    const ambientLight = new THREE.AmbientLight(0xffff00); // Adjust the color as needed
+    scene.add(ambientLight);
 
     // Add orbit controls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -80,8 +86,8 @@ const Canvas: React.FC = () => {
       requestAnimationFrame(animate);
 
       // Rotate the cube
-      sphere.rotation.x += 0.02;
-      sphere.rotation.y += 0.02;
+      sphere.rotation.x += 0.07;
+      sphere.rotation.y += 0.07;
 
       // Update orbit controls
       controls.update();
