@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -71,6 +72,9 @@ const Canvas: React.FC = () => {
     light.position.set(40, 30, 40);
     scene.add(light);
 
+    // Add orbit controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+
     // Add animation
     const animate = () => {
       requestAnimationFrame(animate);
@@ -78,6 +82,9 @@ const Canvas: React.FC = () => {
       // Rotate the cube
       cube.rotation.x += 0.02;
       cube.rotation.y += 0.02;
+
+      // Update orbit controls
+      controls.update();
 
       renderer.render(scene, camera);
     };
